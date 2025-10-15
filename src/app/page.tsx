@@ -1,34 +1,29 @@
-'use client';
+'use client'
 
-import AsidePanel from "../components/asidePanel"
-import MainScreen from "@/components/mainScreen";
-import {PageProvider} from "@/context/PageContext";
-import {DialogProvider} from "@/context/DialogContext";
+import MainScreen from '@/components/main-screen'
+import { DialogProvider } from '@/context/DialogContext'
+import { PageProvider } from '@/context/PageContent'
+import { TaskProvider } from '@/context/TaskContent'
+import AsidePanel from '../components/aside-panel'
 
 export default function Home() {
+  interface Page {
+    name: string
+  }
 
-    interface Page {
-        id: number,
-        href:string,
-        name:string
-    }
-    const pages : Page[] = [
-        {id:1, name: "Main", href: "/home"},
-        {id:2, name: "Tasks", href: "/settings"},
-        {id:3, name: "Financials", href: "/stats"},
-        {id:4, name: "Habits", href: "/habits"},
-    ]
+  return (
+    <div className="bg-(--bg-color) w-screen h-screen overflow-hidden flex dark">
+      <PageProvider>
+        <TaskProvider>
+          <DialogProvider>
+            <AsidePanel isAbsolute={false} />
+          </DialogProvider>
+          <MainScreen>
 
-    return (
-    <div className="bg-(--bg-color) w-screen h-screen overflow-hidden flex">
-        <PageProvider pages={pages}>
-            <DialogProvider>
-                <AsidePanel isAbsolute={false}/>
-            </DialogProvider>
-            <MainScreen>
-                <h1>WORK IN PROGRESS</h1>
-            </MainScreen>
-        </PageProvider>
+            <h1>WORK IN PROGRESS</h1>
+          </MainScreen>
+        </TaskProvider>
+      </PageProvider>
     </div>
-  );
+  )
 }

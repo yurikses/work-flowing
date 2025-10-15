@@ -25,9 +25,37 @@ model User {
   updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
+  tasks         Task[]
+  //taskTabs      TaskTab[]
 
   @@map("user")
 }
+
+model Task {
+  id Int @id @default(autoincrement())
+  title String
+  isActive Boolean @default(true)
+  description String?
+  dueDate DateTime @default(now())
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  //taskTabId Int
+  //taskTab TaskTab @relation(fields: [taskTabId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@map("task")
+}
+// Для добавления функционала вкладок задач
+// model TaskTab {
+//   id Int @id @default(autoincrement())
+//   title String
+//   userId String
+//   tasks Task[]
+//   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   createdAt DateTime @default(now())
+// }
+
+
 
 model Habit {
   id          Int     @id @default(autoincrement())
